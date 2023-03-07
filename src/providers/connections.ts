@@ -10,10 +10,12 @@ import { createBlackList, BlackList, STORE_TYPE } from 'jwt-blacklist'
  * @returns {Promise<Connection>} the database connection object
  */
 export async function setupConnection(url: string, drop: boolean = false): Promise<Connection> {
+    console.log(config.dbEntitiesPath);
+
     return createConnection({
         type: 'mongodb',
-        url,    
-        useNewUrlParser: true,      
+        url,
+        useNewUrlParser: true,
         ssl: config.dbsslconn,
         authSource: 'admin',
         keepAlive: 600000,
@@ -22,7 +24,7 @@ export async function setupConnection(url: string, drop: boolean = false): Promi
         synchronize: true,
         useUnifiedTopology: true,
         dropSchema: drop,
-        logging: false,
+        logging: true
     })
 }
 

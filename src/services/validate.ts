@@ -32,6 +32,8 @@ export const validateRequest = async (
     const validate = ajv.compile({ ...entitySchema, required })
     const valid = await validate(reqObject)
 
+    console.log(reqObject);
+
     if (!valid && validate.errors && validate.errors.length > 0) {
         context.throw(new errors.RequestValidationErrors('RequestValidationErrors'))
     }

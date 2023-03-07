@@ -3,7 +3,7 @@ import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn } fr
 import { bcryptCompareAsync, bcryptHashAsync } from '../libraries/crypto'
 import { UserPublic } from '../interfaces/user.interfaces'
 
-@Entity()
+@Entity('User')
 export class User {
     /*
         // Note: I use shortid to generate ids for the primary columns
@@ -15,7 +15,7 @@ export class User {
         @PrimaryColumn()
         _id: string // Note: primary key can be anything e.g. id, userId etc
     */
-    
+
     // mongo (which I'm using)
     @ObjectIdColumn()
     _id!: string // Note: primary key MUST BE '_id' with the underscore
