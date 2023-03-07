@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken'
 import { BaseContext } from 'koa'
 import { config } from '../config'
-import { User } from '../entities/user'
+import { User } from '../entities/user/user'
 import { DecodedJwtToken } from '../interfaces/auth.interfaces'
-import {blacklistConnection } from '../providers/connections'
+import { blacklistConnection } from '../providers/connections'
 import { BlackList } from 'jwt-blacklist'
 import * as errors from '../libraries/errors'
 import { logger } from '../libraries/logger'
@@ -60,17 +60,17 @@ export const verifyToken = function (context: BaseContext, token: string, type: 
  * @param  {BaseContext} context Koa Context object
  * @returns {Promise<void>} a void promise
  */
-export const revokeToken = async function(context: BaseContext): Promise<void> {
+export const revokeToken = async function (context: BaseContext): Promise<void> {
     const tokenToRevoke = (context.header?.authorization && context.header.authorization.split(' ')[1]) || ''
 
     try {
         const tokenBlacklist: BlackList = await blacklistConnection()
 
         await tokenBlacklist.add(tokenToRevoke)
-    } catch(error) {
+    } catch (error) {
         logger.error('revokeToken', { error })
-    }    
-}   
+    }
+}
 
 /**
  *  Verifies the email contained in a JWT token

@@ -5,7 +5,7 @@ db.createUser(
         roles: [
             {
                 role: 'readWrite',
-                db: 'apidb'
+                db: 'wizard'
             }
         ]
     }

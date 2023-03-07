@@ -1,7 +1,7 @@
 import shortid from 'shortid'
 import { BaseContext } from 'koa'
 import { getManager, Repository } from 'typeorm'
-import { User } from '../entities/user'
+import { User } from '../entities/user/user'
 import { UserPublic } from '../interfaces/user.interfaces'
 import * as errors from '../libraries/errors'
 import { logger } from '../libraries/logger'
@@ -35,7 +35,7 @@ export const findAllUsers = async function (context: BaseContext, qryObj: Record
  * @param  {boolean} isPublic whether the returned user object should hide sensitive fields. true by default
  * @returns {Promise<User|UserPublic>} a promise with the fetched user
  */
-export const findUser = async function (context: BaseContext, qryObj: Record<string, any>, isPublic:boolean = true): Promise<User|UserPublic> {
+export const findUser = async function (context: BaseContext, qryObj: Record<string, any>, isPublic: boolean = true): Promise<User | UserPublic> {
     const userRepository: Repository<User> = getManager().getRepository(User)
     let user
 
@@ -62,11 +62,11 @@ export const checkIfUserAlreadyExists = async function (context: BaseContext, qr
     const userRepository: Repository<User> = getManager().getRepository(User)
 
     try {
-        if(!await userRepository.findOne(qryObj)) return
+        if (!await userRepository.findOne(qryObj)) return
     } catch (error) {
         logger.error('checkIfUserAlreadyExists', { error })
         context.throw(new errors.InternalServerError())
-    }   
+    }
 
     context.throw(new errors.UserAlreadyExists())
 }
@@ -77,10 +77,10 @@ export const checkIfUserAlreadyExists = async function (context: BaseContext, qr
  * @param  {User} user the user whose password is to be checked
  * @returns {Promise<void>} a void promise if correct. throws otherwise
  */
-export const checkIfUserPasswordCorrect = async function(context: BaseContext, user: User): Promise<void> {
+export const checkIfUserPasswordCorrect = async function (context: BaseContext, user: User): Promise<void> {
     if (!(await user.checkIfUnencryptedPasswordIsValid(context.request.body.password)))
         context.throw(new errors.InvalidUserPassword('WrongPassword'))
-    
+
     return
 }
 
@@ -141,7 +141,7 @@ export const saveNewUser = async function (context: BaseContext, user: User): Pr
 
     try {
         await user.hashPassword()
-   
+
         return userRepository.save(user)
     } catch (error) {
         logger.error('saveNewUser', { error })
@@ -164,7 +164,7 @@ export const updateUser = async function (context: BaseContext, user: User): Pro
     try {
         delete user.password
         delete user.createdAt
-  
+
         return userRepository.save(user)
     } catch (error) {
         logger.error('updateUser', { error })
