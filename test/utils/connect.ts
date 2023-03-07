@@ -3,7 +3,7 @@ import { server } from '../../src/server'
 
 // Connection URI
 const databaseName = `wizard_${Math.floor(Math.random() * (Math.floor(999999) + 1))}`
-const uri = 'mongodb://localhost:27017/' + databaseName + '?authSource=admin'
+const uri = 'mongodb://user:pass@localhost:27017/' + databaseName + '?authSource=admin'
 
 export let mongoClient: MongoClient
 

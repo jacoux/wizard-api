@@ -6,7 +6,7 @@ dotenv.config({ path: '.env' })
 // mongo
 const isTestMode = process.env.NODE_ENV === 'test'
 const isDevelopmentMode = process.env.NODE_ENV === 'development'
-const databaseUrl = process.env.DATABASE_URL || 'mongodb://localhost:27017/wizard'
+const databaseUrl = process.env.DATABASE_URL || 'mongodb://user:pass@localhost:27017/wizard'
 
 // redis defaults
 const redis = {

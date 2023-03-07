@@ -1,5 +1,5 @@
 import { SwaggerRouter } from 'koa-swagger-decorator'
-import { auth, user } from '../controllers'
+import { auth, user, organization } from '../controllers'
 
 const unprotectedRouter = new SwaggerRouter()
 
@@ -9,5 +9,8 @@ unprotectedRouter.get('/refresh', auth.refreshToken)
 
 // User
 unprotectedRouter.post('/users', user.createUser)
+
+// Organization
+unprotectedRouter.post('/organizations', organization.createOrganization)
 
 export { unprotectedRouter }

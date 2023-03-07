@@ -24,9 +24,6 @@ export class Organization {
     name!: string
 
     @Column()
-    dob!: Date
-
-    @Column()
     address!: string
 
     @Column()

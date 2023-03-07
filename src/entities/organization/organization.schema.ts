@@ -1,6 +1,5 @@
 export const createOrganizationSchema = {
     name: { type: 'string', example: 'Emmanuel', required: true },
-    dob: { type: 'string', example: '1996-05-30', required: true },
     vat: { type: 'string', example: 'BE0704651352', required: true },
     address: {
         type: 'string',
@@ -14,7 +13,6 @@ export const createOrganizationSchema = {
 
 export const updateOrganizationSchema = {
     name: { type: 'string', example: 'Emmanuel', required: true },
-    dob: { type: 'string', example: '1996-05-30', required: true },
     vat: { type: 'string', example: 'BE0704651352', required: true },
     address: {
         type: 'string',
@@ -26,7 +24,7 @@ export const updateOrganizationSchema = {
     },
 }
 
-export const requestValidationSchema = {
+export const requestOrganizationValidationSchema = {
     type: 'object',
     properties: {
         _id: { type: 'string' },
@@ -34,7 +32,6 @@ export const requestValidationSchema = {
         name: { type: 'string', minLength: 2, maxLength: 80 },
         vat: { type: 'string', minLength: 2, maxLength: 20 },
         email: { type: 'string', format: 'email' },
-        dob: { type: 'string', format: 'date' },
         following: { type: 'array' },
         address: {
             type: 'string',
