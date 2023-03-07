@@ -2,8 +2,8 @@ import { Db, MongoClient } from 'mongodb'
 import { server } from '../../src/server'
 
 // Connection URI
-const databaseName = `testDb_${Math.floor(Math.random() * (Math.floor(999999) + 1))}`
-const uri = 'mongodb://user:pass@localhost:27017/' + databaseName + '?authSource=admin'
+const databaseName = `wizard_${Math.floor(Math.random() * (Math.floor(999999) + 1))}`
+const uri = 'mongodb://localhost:27017/' + databaseName + '?authSource=admin'
 
 export let mongoClient: MongoClient
 
@@ -25,7 +25,7 @@ export const mongo = {
         mongoClient = client
         this.db = client.db(databaseName)
 
-        return this.db 
+        return this.db
     },
 }
 
