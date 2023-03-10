@@ -1,5 +1,5 @@
 import { SwaggerRouter } from 'koa-swagger-decorator'
-import { user, auth, organization } from '../controllers'
+import { user, auth, organization, client } from '../controllers'
 import fs from 'fs'
 import { minify } from 'html-minifier'
 
@@ -27,6 +27,13 @@ protectedRouter.get('/organizations', organization.getOrganizations)
 protectedRouter.get('/organizations/:id', organization.getOrganization)
 protectedRouter.delete('/organizations/:id', organization.deleteOrganization)
 protectedRouter.put('/organizations/:id', organization.updateOrganization)
+
+// CLIENT ROUTES
+protectedRouter.get('/clients', client.getClients)
+protectedRouter.get('/clients/:id', client.getClient)
+protectedRouter.delete('/clients/:id', client.deleteClient)
+protectedRouter.put('/clients/:id', client.updateClient)
+protectedRouter.post('/clients', client.createClient)
 
 
 protectedRouter.swagger(swaggerRouterOpts)
