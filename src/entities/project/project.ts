@@ -1,11 +1,11 @@
 import _ from 'lodash'
-import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
-import { Project } from '../project/project'
+import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm'
+import { Client } from '../client/client'
 // import { bcryptCompareAsync, bcryptHashAsync } from '../libraries/crypto'
 // import { UserPublic } from '../interfaces/user.interfaces'
 
-@Entity('Client')
-export class Client {
+@Entity('Project')
+export class Project {
     /*
         // Note: I use shortid to generate ids for the primary columns
         // in other databases like postgres, you can use
@@ -25,34 +25,49 @@ export class Client {
     name!: string
 
     @Column()
-    address!: string
+    projectNumber!: number
 
-    @Column()
-    email!: string
+    @CreateDateColumn()
+    startDate!: Date
 
-    @OneToMany(() => Project, (project: Project) => project.client._id)
-    projects?: Project[]
+    @CreateDateColumn()
+    endDate!: Date
+
+    @ManyToOne(() => Client, (client: Client) => client.projects)
+    client!: Client
 
     @Column()
     organizationId!: string
 
     @Column()
-    description!: string
+    amountOfProjectMembers?: number
 
     @Column()
-    vat!: string
+    priority?: string
 
     @Column()
-    tel?: string
+    projectResponsiblePerson?: string
 
     @Column()
-    responsible?: string
+    status?: string
 
     @Column()
-    firstName?: string
+    maxBudget?: number
 
     @Column()
-    lastName?: string
+    currentBudget?: number
+    
+    @Column()
+    currency?: string
+
+    @Column()
+    description?: string
+
+    @Column()
+    linkedProjects?: []
+
+    @Column()
+    invoices?: []
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt?: Date

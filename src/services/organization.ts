@@ -132,7 +132,7 @@ export const saveNewOrganization = async function (context: BaseContext, organiz
  * Saves an updated user in the User collection
  * 
  * @param  {BaseContext} context Koa context object
- * @param  {Organization} user the user to be saved
+ * @param  {Organization} organization the user to be saved
  * @returns {Promise<Organization>}  a promise with the saved updated user
  */
 export const updateOrganization = async function (context: BaseContext, organization: Organization): Promise<Organization> {
