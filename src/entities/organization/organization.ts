@@ -30,10 +30,19 @@ export class Organization {
     description!: string
 
     @Column()
+    startInvoiceNumber?: number
+
+    @Column()
     vat!: string
 
     @Column()
     tel?: string
+
+    @Column()
+    bankNumber?: string
+
+    @Column()
+    bankSwift?: string
 
     @Column()
     responsible?: string

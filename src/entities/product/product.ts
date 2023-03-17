@@ -1,12 +1,10 @@
 import _ from 'lodash'
-import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
-import { Invoice } from '../invoice/invoice'
-import { Project } from '../project/project'
+import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 // import { bcryptCompareAsync, bcryptHashAsync } from '../libraries/crypto'
 // import { UserPublic } from '../interfaces/user.interfaces'
 
-@Entity('Client')
-export class Client {
+@Entity('Product')
+export class Product {
     /*
         // Note: I use shortid to generate ids for the primary columns
         // in other databases like postgres, you can use
@@ -22,41 +20,23 @@ export class Client {
     @ObjectIdColumn()
     _id!: string // Note: primary key MUST BE '_id' with the underscore
 
-    @Column({ length: 80 })
+    @Column()
     name!: string
-
-    @Column()
-    address!: string
-
-    @Column()
-    email!: string
-
-    @OneToMany(() => Project, (project: Project) => project.client._id)
-    projects?: Project[]
-
-    @OneToMany(() => Invoice, (invoice: Invoice) => invoice._id)
-    invoices?: Invoice[]
 
     @Column()
     organizationId!: string
 
     @Column()
-    description!: string
+    vatPercentage!: number
 
     @Column()
-    vat!: string
+    price!: number
 
     @Column()
-    tel?: string
+    description?: string
 
     @Column()
-    responsible?: string
-
-    @Column()
-    firstName?: string
-
-    @Column()
-    lastName?: string
+    isHourlyRate?: boolean
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt?: Date

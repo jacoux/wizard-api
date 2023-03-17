@@ -1,5 +1,5 @@
 import { SwaggerRouter } from 'koa-swagger-decorator'
-import { user, auth, organization, client, project } from '../controllers'
+import { user, auth, organization, client, project, invoice, product } from '../controllers'
 import fs from 'fs'
 import { minify } from 'html-minifier'
 
@@ -29,7 +29,6 @@ protectedRouter.delete('/organizations/:id', organization.deleteOrganization)
 protectedRouter.put('/organizations/:id', organization.updateOrganization)
 
 // CLIENT ROUTES
-protectedRouter.get('/clients', client.getClients)
 protectedRouter.get('/clients/:id', client.getClient)
 protectedRouter.delete('/clients/:id', client.deleteClient)
 protectedRouter.put('/clients/:id', client.updateClient)
@@ -41,6 +40,20 @@ protectedRouter.get('/projects/:id', project.getProject)
 protectedRouter.delete('/projects/:id', project.deleteProject)
 protectedRouter.put('/projects/:id', project.updateProject)
 protectedRouter.post('/projects', project.createProject)
+
+// INVOICE ROUTES
+protectedRouter.get('/invoices', invoice.getInvoices)
+protectedRouter.get('/invoices/:id', invoice.getInvoice)
+protectedRouter.delete('/invoices/:id', invoice.deleteInvoice)
+protectedRouter.put('/invoices/:id', invoice.updateInvoice)
+protectedRouter.post('/invoices', invoice.createInvoice)
+
+// INVOICE ROUTES
+// protectedRouter.get('/products', product.getProducts)
+protectedRouter.get('/invoices/:id', product.getProduct)
+protectedRouter.delete('/invoices/:id', product.deleteProduct)
+protectedRouter.put('/invoices/:id', product.updateProduct)
+protectedRouter.post('/invoices', product.createProduct)
 
 
 protectedRouter.swagger(swaggerRouterOpts)

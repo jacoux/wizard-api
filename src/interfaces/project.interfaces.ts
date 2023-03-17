@@ -26,7 +26,7 @@ export enum Priority {
     HIGH
 }
 
-enum Currency {
+export enum Currency {
     EURO,
     POND,
     DOLLAR

@@ -84,6 +84,10 @@ export const createNewOrganizationModel = function (context: BaseContext): Organ
     organization.vat = context.request.body.vat
     organization.address = context.request.body.address || ''
     organization.description = context.request.body.description || ''
+    organization.bankNumber = context.request.body.bankNumber
+    organization.bankSwift = context.request.body.bankSwift
+    organization.startInvoiceNumber = context.request.body.startInvoiceNumber || '1'
+
 
     return organization
 }
@@ -102,6 +106,9 @@ export const createUpdateOrganizationModel = function (context: BaseContext): Or
     organization.vat = context.request.body.vat
     organization.address = context.request.body.address
     organization.description = context.request.body.description
+    organization.bankNumber = context.request.body.bankNumber
+    organization.bankSwift = context.request.body.bankSwift
+    organization.startInvoiceNumber = context.request.body.startInvoiceNumber
 
     // remove fields that should not be updated
     delete organization.createdAt

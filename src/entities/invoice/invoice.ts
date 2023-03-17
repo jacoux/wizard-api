@@ -1,12 +1,11 @@
 import _ from 'lodash'
-import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
-import { Invoice } from '../invoice/invoice'
-import { Project } from '../project/project'
+import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm'
+import { Client } from '../client/client'
 // import { bcryptCompareAsync, bcryptHashAsync } from '../libraries/crypto'
 // import { UserPublic } from '../interfaces/user.interfaces'
 
-@Entity('Client')
-export class Client {
+@Entity('Invoice')
+export class Invoice {
     /*
         // Note: I use shortid to generate ids for the primary columns
         // in other databases like postgres, you can use
@@ -22,41 +21,63 @@ export class Client {
     @ObjectIdColumn()
     _id!: string // Note: primary key MUST BE '_id' with the underscore
 
-    @Column({ length: 80 })
-    name!: string
+    @Column()
+    invoiceNumber!: number
 
     @Column()
-    address!: string
+    invoiceNumberPrefix?: string
 
     @Column()
-    email!: string
+    invoiceName?: string
 
-    @OneToMany(() => Project, (project: Project) => project.client._id)
-    projects?: Project[]
+    @Column()
+    creationDate!: Date
 
-    @OneToMany(() => Invoice, (invoice: Invoice) => invoice._id)
-    invoices?: Invoice[]
+    @Column()
+    payDate!: Date
+
+    @Column()
+    extendedDate?: Date
+
+    // of clientId
+    @ManyToOne(() => Client, (client: Client) => client.invoices)
+    client!: Client
 
     @Column()
     organizationId!: string
 
     @Column()
-    description!: string
+    payWithin!: number
 
     @Column()
-    vat!: string
+    vatAmount!: number
 
     @Column()
-    tel?: string
+    footNotes?: string
 
     @Column()
-    responsible?: string
+    products?: string;
 
     @Column()
-    firstName?: string
+    currency?: string
 
     @Column()
-    lastName?: string
+    paymentDetails?: string
+
+    @Column()
+    totalWithVat?: number
+
+    @Column()
+    totalWithoutVat?: number
+
+    @Column()
+    vatPercentage?: string
+
+    @Column()
+    chargeVat?: boolean
+
+    @Column()
+    description?: string
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt?: Date
