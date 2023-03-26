@@ -16,6 +16,7 @@ unprotectedRouter.get('/clients', client.getClients)
 //product
 unprotectedRouter.get('/products', product.getProducts)
 
+unprotectedRouter.get('/organizations/', organization.getOrganizations)
 
 // Organization
 unprotectedRouter.post('/organizations', organization.createOrganization)

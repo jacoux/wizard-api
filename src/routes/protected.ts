@@ -23,7 +23,7 @@ protectedRouter.put('/users/:id', user.updateUser)
 protectedRouter.delete('/users/:id', user.deleteUser)
 
 // ORGANIZATION ROUTES
-protectedRouter.get('/organizations', organization.getOrganizations)
+// protectedRouter.get('/organizations', organization.getOrganizations)
 protectedRouter.get('/organizations/:id', organization.getOrganization)
 protectedRouter.delete('/organizations/:id', organization.deleteOrganization)
 protectedRouter.put('/organizations/:id', organization.updateOrganization)

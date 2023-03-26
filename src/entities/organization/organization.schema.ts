@@ -1,6 +1,7 @@
 export const createOrganizationSchema = {
     name: { type: 'string', example: 'Emmanuel', required: true },
     vat: { type: 'string', example: 'BE0704651352', required: true },
+    accountType: { type: 'string', example: 'BE0704651352', required: true },
     address: {
         type: 'string',
         example: '44-65 Laparella Cinco, Donella, Mexico City, Mexico',
@@ -14,6 +15,7 @@ export const createOrganizationSchema = {
 export const updateOrganizationSchema = {
     name: { type: 'string', example: 'Emmanuel', required: true },
     vat: { type: 'string', example: 'BE0704651352', required: true },
+    accountType: { type: 'string', example: 'BE0704651352', required: true },
     address: {
         type: 'string',
         example: '44-65 Laparella Cinco, Donella, Mexico City, Mexico',
@@ -29,10 +31,12 @@ export const requestOrganizationValidationSchema = {
     properties: {
         _id: { type: 'string' },
         id: { type: 'string' },
+        accountType: { type: 'string' },
         name: { type: 'string', minLength: 2, maxLength: 80 },
         vat: { type: 'string', minLength: 2, maxLength: 20 },
         email: { type: 'string', format: 'email' },
         following: { type: 'array' },
+        sector: { type: 'array' },
         address: {
             type: 'string',
             minLength: 0,

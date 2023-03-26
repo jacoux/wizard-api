@@ -3,7 +3,29 @@ import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn } fr
 // import { bcryptCompareAsync, bcryptHashAsync } from '../libraries/crypto'
 // import { UserPublic } from '../interfaces/user.interfaces'
 
-@Entity('Organization')
+export class Address {
+   @Column()
+    streetName!: string
+   @Column()
+   streetNumber!: string
+   @Column()
+   streetBus!: string
+   @Column()
+   postalCode!: string
+    @Column()
+    city!: string
+    @Column()
+    country!: string
+}
+
+export class Employee {
+   @Column()
+    email!: string
+   @Column()
+   role!: string
+}
+
+@Entity('Organization')    
 export class Organization {
     /*
         // Note: I use shortid to generate ids for the primary columns
@@ -24,10 +46,19 @@ export class Organization {
     name!: string
 
     @Column()
-    address!: string
+    address!: Address
+
+    @Column()
+    employee!: Employee
+
+    @Column()
+    sector!: string
 
     @Column()
     description!: string
+
+    @Column()
+    accountType!: string
 
     @Column()
     startInvoiceNumber?: number
