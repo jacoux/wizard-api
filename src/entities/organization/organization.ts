@@ -4,14 +4,14 @@ import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn } fr
 // import { UserPublic } from '../interfaces/user.interfaces'
 
 export class Address {
-   @Column()
+    @Column()
     streetName!: string
-   @Column()
-   streetNumber!: string
-   @Column()
-   streetBus!: string
-   @Column()
-   postalCode!: string
+    @Column()
+    streetNumber!: string
+    @Column()
+    streetBus!: string
+    @Column()
+    postalCode!: string
     @Column()
     city!: string
     @Column()
@@ -19,13 +19,13 @@ export class Address {
 }
 
 export class Employee {
-   @Column()
+    @Column()
     email!: string
-   @Column()
-   role!: string
+    @Column()
+    role!: string
 }
 
-@Entity('Organization')    
+@Entity('Organization')
 export class Organization {
     /*
         // Note: I use shortid to generate ids for the primary columns
@@ -56,6 +56,9 @@ export class Organization {
 
     @Column()
     description!: string
+
+    @Column()
+    companyEmail!: string
 
     @Column()
     accountType!: string

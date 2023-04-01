@@ -32,6 +32,7 @@ export const requestOrganizationValidationSchema = {
         _id: { type: 'string' },
         id: { type: 'string' },
         accountType: { type: 'string' },
+        companyEmail: { type: 'string' },
         name: { type: 'string', minLength: 2, maxLength: 80 },
         vat: { type: 'string', minLength: 2, maxLength: 20 },
         email: { type: 'string', format: 'email' },
@@ -40,12 +41,12 @@ export const requestOrganizationValidationSchema = {
         address: {
             type: 'string',
             minLength: 0,
-            maxLength: 300
+            maxLength: 300,
         },
         description: {
             type: 'string',
             minLength: 0,
-            maxLength: 500
+            maxLength: 500,
         },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
