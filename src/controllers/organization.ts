@@ -40,7 +40,7 @@ export default class OrganizationController {
     @summary('Create a organization')
     @body(createOrganizationSchema)
     @responses({
-        201: { description: 'organization created successfully' },
+        200: { description: 'organization created successfully' },
         400: { description: 'missing parameters, invalid password, validation errors' },
         409: { description: 'organization already exists' },
     })
@@ -55,7 +55,7 @@ export default class OrganizationController {
         await OrganizationService.checkIfOrganizationAlreadyExists(context, { name: organizationToBeCreated.name })
         await OrganizationService.saveNewOrganization(context, organizationToBeCreated)
 
-        response(context, 201, 'organization created')
+        response(context, 200, { 'data': { 'id': organizationToBeCreated._id } })
     }
 
     @request('put', '/organizations/{id}')

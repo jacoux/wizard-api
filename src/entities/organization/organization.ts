@@ -67,7 +67,7 @@ export class Organization {
     startInvoiceNumber?: number
 
     @Column()
-    vat!: string
+    companyVat!: string
 
     @Column()
     tel?: string
