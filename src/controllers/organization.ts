@@ -55,7 +55,7 @@ export default class OrganizationController {
         await OrganizationService.checkIfOrganizationAlreadyExists(context, { name: organizationToBeCreated.name })
         await OrganizationService.saveNewOrganization(context, organizationToBeCreated)
 
-        response(context, 200, { 'data': { 'id': organizationToBeCreated._id } })
+        response(context, 200, { 'data': { 'id': organizationToBeCreated._id.toString() }})
     }
 
     @request('put', '/organizations/{id}')
