@@ -20,11 +20,11 @@ import { logger } from './libraries/logger'
 
 export const server = function (): Server {
     const app = new Koa()
-    
+
     const admin = new AdminJS({
-    rootPath: '/admin',
+        rootPath: '/admin',
     })
-      const router = AdminJSKoa.buildRouter(admin, app)
+    const router = AdminJSKoa.buildRouter(admin, app)
 
     // Provides important security headers to make your app more secure
     app.use(helmet())
@@ -33,7 +33,7 @@ export const server = function (): Server {
     app.use(cors())
 
     // Logger middleware -> use winston as logger
-    if(config.nodeEnv !== 'test') app.use(loggerMiddleware(winston))
+    if (config.nodeEnv !== 'test') app.use(loggerMiddleware(winston))
 
     // Enable bodyParser with default options
     app.use(bodyParser())
@@ -52,7 +52,7 @@ export const server = function (): Server {
     app.use(jwt({ secret: config.jwt.accessTokenSecret }).unless({ path: [/^\/assets|swagger-/] }))
 
     // Middleware to block expired or revoked jwt tokens
-    if(config.redis.blackListEnabled) app.use(tokenBlacklistMiddleware)
+    if (config.redis.blackListEnabled) app.use(tokenBlacklistMiddleware)
 
     // These routes are protected by the JWT middleware
     app.use(protectedRouter.routes()).use(protectedRouter.allowedMethods())
