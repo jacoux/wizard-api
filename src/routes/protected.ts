@@ -1,5 +1,5 @@
 import { SwaggerRouter } from 'koa-swagger-decorator'
-import { user, auth, organization, client, project, invoice, product } from '../controllers'
+import { user, auth, organization, client, project, invoice, product, job } from '../controllers'
 import fs from 'fs'
 import { minify } from 'html-minifier'
 
@@ -8,7 +8,7 @@ const description = fs.readFileSync(__dirname + '/swagger-description.html', 'ut
 export const swaggerRouterOpts = {
     title: 'RESTful Typescript Koa',
     description: minify(description, { collapseWhitespace: true }),
-    version: '1.0.0'
+    version: '1.0.0',
 }
 
 const protectedRouter = new SwaggerRouter()
@@ -55,6 +55,11 @@ protectedRouter.delete('/invoices/:id', product.deleteProduct)
 protectedRouter.put('/invoices/:id', product.updateProduct)
 protectedRouter.post('/invoices', product.createProduct)
 
+// JOB ROUTES
+protectedRouter.get('/job/:id', job.getJob)
+protectedRouter.delete('/job/:id', job.deleteJob)
+protectedRouter.put('/job/:id', job.updateJob)
+protectedRouter.post('/jobs', job.createJob)
 
 protectedRouter.swagger(swaggerRouterOpts)
 protectedRouter.mapDir(__dirname + '/../')
