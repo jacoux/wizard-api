@@ -48,7 +48,7 @@ export class Job {
     responsible?: string
 
     @Column()
-    location!: Address
+    address!: Address
 
     @Column()
     description?: Description
