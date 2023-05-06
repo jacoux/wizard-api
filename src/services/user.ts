@@ -8,12 +8,15 @@ import { logger } from '../libraries/logger'
 
 /**
  * Fetches all users in the user collection
- * 
+ *
  * @param  {BaseContext} context Koa context object
  * @param  {Record<string, any>} qryObj a database query object
  * @returns {Promise<Array<UserPublic>>} a promise with array of fetched users
  */
-export const findAllUsers = async function (context: BaseContext, qryObj: Record<string, any>): Promise<Array<UserPublic>> {
+export const findAllUsers = async function (
+    context: BaseContext,
+    qryObj: Record<string, any>,
+): Promise<Array<UserPublic>> {
     const userRepository: Repository<User> = getManager().getRepository(User)
     let users = []
 
@@ -29,13 +32,17 @@ export const findAllUsers = async function (context: BaseContext, qryObj: Record
 
 /**
  * Fetches a single user from the user collection
- * 
+ *
  * @param  {BaseContext} context Koa context object
  * @param  {Record<string, any>} qryObj a database query object
  * @param  {boolean} isPublic whether the returned user object should hide sensitive fields. true by default
  * @returns {Promise<User|UserPublic>} a promise with the fetched user
  */
-export const findUser = async function (context: BaseContext, qryObj: Record<string, any>, isPublic: boolean = true): Promise<User | UserPublic> {
+export const findUser = async function (
+    context: BaseContext,
+    qryObj: Record<string, any>,
+    isPublic: boolean = true,
+): Promise<User | UserPublic> {
     const userRepository: Repository<User> = getManager().getRepository(User)
     let user
 
@@ -53,16 +60,19 @@ export const findUser = async function (context: BaseContext, qryObj: Record<str
 
 /**
  * Checks if the user already exists in the collection
- * 
+ *
  * @param  {BaseContext} context Koa context object
  * @param  {Record<string, any>} qryObj a database query object
- * @returns {Promise<void>} a void promise if user doesn't exists. throws error if user already exists 
+ * @returns {Promise<void>} a void promise if user doesn't exists. throws error if user already exists
  */
-export const checkIfUserAlreadyExists = async function (context: BaseContext, qryObj: Record<string, any>): Promise<void> {
+export const checkIfUserAlreadyExists = async function (
+    context: BaseContext,
+    qryObj: Record<string, any>,
+): Promise<void> {
     const userRepository: Repository<User> = getManager().getRepository(User)
 
     try {
-        if (!await userRepository.findOne(qryObj)) return
+        if (!(await userRepository.findOne(qryObj))) return
     } catch (error) {
         logger.error('checkIfUserAlreadyExists', { error })
         context.throw(new errors.InternalServerError())
@@ -72,7 +82,7 @@ export const checkIfUserAlreadyExists = async function (context: BaseContext, qr
 }
 /**
  * Checks if the users password matches the saved hash
- * 
+ *
  * @param  {BaseContext} context Koa context object
  * @param  {User} user the user whose password is to be checked
  * @returns {Promise<void>} a void promise if correct. throws otherwise
@@ -86,7 +96,7 @@ export const checkIfUserPasswordCorrect = async function (context: BaseContext, 
 
 /**
  * Returns a new User model for saving a new user
- * 
+ *
  * @param  {BaseContext} context Koa context object
  * @returns {User} the created user model
  */
@@ -100,13 +110,14 @@ export const createNewUserModel = function (context: BaseContext): User {
     user.dob = context.request.body.dob
     user.address = context.request.body.address || ''
     user.description = context.request.body.description || ''
+    user.organizationId = context.request.body.organizationId
 
     return user
 }
 
 /**
  * Returns a new User model for saving an updated user
- * 
+ *
  * @param  {BaseContext} context Koa context object
  * @returns {User} the created user model
  */
@@ -118,6 +129,7 @@ export const createUpdateUserModel = function (context: BaseContext): User {
     user.email = context.request.body.email
     user.password = context.request.body.password
     user.dob = context.request.body.dob
+    user.organizationId = context.request.body.organizationId
     user.address = context.request.body.address
     user.description = context.request.body.description
 
@@ -129,9 +141,9 @@ export const createUpdateUserModel = function (context: BaseContext): User {
 
 /**
  * Saves a new user in the User collection
- * 
+ *
  * @param  {BaseContext} context Koa context object
- * @param  {User} user the user to be saved 
+ * @param  {User} user the user to be saved
  * @returns {Promise<User>} a promise with the saved user
  */
 export const saveNewUser = async function (context: BaseContext, user: User): Promise<User> {
@@ -151,7 +163,7 @@ export const saveNewUser = async function (context: BaseContext, user: User): Pr
 
 /**
  * Saves an updated user in the User collection
- * 
+ *
  * @param  {BaseContext} context Koa context object
  * @param  {User} user the user to be saved
  * @returns {Promise<User>}  a promise with the saved updated user

@@ -3,6 +3,7 @@ export const createUserSchema = {
     email: { type: 'string', example: 'emmanuel@test.com', required: true },
     dob: { type: 'string', example: '1996-05-30', required: true },
     password: { type: 'string', example: 'AAaa@@88$$99', required: true },
+    organizationId: { type: 'string', example: 'dfsfds@@88$$99', required: true },
     address: {
         type: 'string',
         example: '44-65 Laparella Cinco, Donella, Mexico City, Mexico',
@@ -16,6 +17,7 @@ export const createUserSchema = {
 export const updateUserSchema = {
     name: { type: 'string', example: 'Emmanuel' },
     email: { type: 'string', example: 'emmanuel@test.com' },
+    organizationId: { type: 'string', example: 'dfsfds@@88$$99' },
     dob: { type: 'string', example: '1996-05-30' },
     address: {
         type: 'string',
@@ -32,20 +34,21 @@ export const requestValidationSchema = {
     properties: {
         _id: { type: 'string' },
         id: { type: 'string' },
-        name: { type: 'string', minLength: 2, maxLength: 80},
-        email: { type: 'string', format: 'email'},
-        dob: { type: 'string', format: 'date'},
-        password: { type: 'string'},
+        name: { type: 'string', minLength: 2, maxLength: 80 },
+        email: { type: 'string', format: 'email' },
+        dob: { type: 'string', format: 'date' },
+        password: { type: 'string' },
+        organizationId: { type: 'string' },
         following: { type: 'array' },
         address: {
             type: 'string',
             minLength: 0,
-            maxLength: 300
+            maxLength: 300,
         },
         description: {
             type: 'string',
             minLength: 0,
-            maxLength: 500
+            maxLength: 500,
         },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },

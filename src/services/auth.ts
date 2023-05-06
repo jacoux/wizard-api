@@ -56,7 +56,7 @@ export const verifyToken = function (context: BaseContext, token: string, type: 
 
 /**
  *  Adds a token to the redis token blacklist
- * 
+ *
  * @param  {BaseContext} context Koa Context object
  * @returns {Promise<void>} a void promise
  */

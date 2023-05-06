@@ -33,6 +33,9 @@ export class User {
     dob!: Date
 
     @Column()
+    organizationId!: string
+
+    @Column()
     address!: string
 
     @Column()
@@ -56,8 +59,8 @@ export class User {
     }
 
     /**
-     * Hides sensitive fields like password, refreshToken 
-     * 
+     * Hides sensitive fields like password, refreshToken
+     *
      * @returns {UserPublic} the user object but stripped of sensitive fields
      */
     public(): UserPublic {
