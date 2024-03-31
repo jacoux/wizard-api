@@ -4,8 +4,6 @@ import bodyParser from 'koa-bodyparser'
 import helmet from 'koa-helmet'
 import cors from '@koa/cors'
 import winston from 'winston'
-import AdminJS from 'adminjs'
-import AdminJSKoa from '@adminjs/koa'
 import 'reflect-metadata'
 import { Server } from 'http'
 import { loggerMiddleware } from './middleware/logger'
@@ -21,10 +19,6 @@ import { logger } from './libraries/logger'
 export const server = function (): Server {
     const app = new Koa()
 
-    const admin = new AdminJS({
-        rootPath: '/admin',
-    })
-    const router = AdminJSKoa.buildRouter(admin, app)
 
     // Provides important security headers to make your app more secure
     app.use(helmet())
@@ -45,9 +39,6 @@ export const server = function (): Server {
     app.use(unprotectedRouter.routes()).use(unprotectedRouter.allowedMethods())
     app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
 
-    app.use(router.routes())
-    app.use(router.allowedMethods())
-
     // JWT middleware -> below this line routes are only reached if JWT token is valid
     app.use(jwt({ secret: config.jwt.accessTokenSecret }).unless({ path: [/^\/assets|swagger-/] }))
 
@@ -58,7 +49,6 @@ export const server = function (): Server {
     app.use(protectedRouter.routes()).use(protectedRouter.allowedMethods())
 
     console.log(`Server running on port ${config.port}`)
-    console.log(`AdminJS available at http://localhost:${config.port}${admin.options.rootPath}`)
 
     return app.listen(config.port)
 }
