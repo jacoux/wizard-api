@@ -1,10 +1,32 @@
 import _ from 'lodash'
 import { Entity, Column, ObjectIdColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-import { bcryptCompareAsync, bcryptHashAsync } from '../libraries/crypto'
-import { UserPublic } from '../interfaces/user.interfaces'
+// import { bcryptCompareAsync, bcryptHashAsync } from '../libraries/crypto'
+// import { UserPublic } from '../interfaces/user.interfaces'
 
-@Entity('User')
-export class User {
+export class Address {
+    @Column()
+    streetName!: string
+    @Column()
+    streetNumber!: string
+    @Column()
+    streetBus!: string
+    @Column()
+    postalCode!: string
+    @Column()
+    city!: string
+    @Column()
+    country!: string
+}
+
+export class Employee {
+    @Column()
+    email!: string
+    @Column()
+    role!: string
+}
+
+@Entity('Organization')
+export class Organization {
     /*
         // Note: I use shortid to generate ids for the primary columns
         // in other databases like postgres, you can use
@@ -23,44 +45,45 @@ export class User {
     @Column({ length: 80 })
     name!: string
 
-    @Column({ length: 100 })
-    email!: string
-
-    @Column('text')
-    password?: string
+    @Column()
+    address!: Address
 
     @Column()
-    dob!: Date
+    employee!: Employee
 
     @Column()
-    address!: string
+    sector!: string
 
     @Column()
     description!: string
 
     @Column()
-    refreshToken?: string
+    companyEmail!: string
+
+    @Column()
+    accountType!: string
+
+    @Column()
+    startInvoiceNumber?: number
+
+    @Column()
+    companyVat!: string
+
+    @Column()
+    tel?: string
+
+    @Column()
+    bankNumber?: string
+
+    @Column()
+    bankSwift?: string
+
+    @Column()
+    responsible?: string
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt?: Date
 
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt?: Date
-
-    async hashPassword(): Promise<void> {
-        if (this.password) this.password = await bcryptHashAsync(this.password, 8)
-    }
-
-    async checkIfUnencryptedPasswordIsValid(unencryptedPassword: string): Promise<boolean> {
-        return bcryptCompareAsync(unencryptedPassword, this.password || '')
-    }
-
-    /**
-     * Hides sensitive fields like password, refreshToken 
-     * 
-     * @returns {UserPublic} the user object but stripped of sensitive fields
-     */
-    public(): UserPublic {
-        return _.omit({ id: this._id, ...this }, ['_id', 'password', 'refreshToken'])
-    }
 }

@@ -1,2 +1,8 @@
 export { default as auth } from './auth'
 export { default as user } from './user'
+export { default as client } from './client'
+export { default as project } from './project'
+export { default as organization } from './organization'
+export { default as invoice } from './invoice'
+export { default as product } from './product'
+export { default as job } from './job'

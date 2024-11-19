@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken'
 import { BaseContext } from 'koa'
 import { request, summary, description, responses, tagsAll, body } from 'koa-swagger-decorator'
 import { config } from '../config'
-import { User } from '../entities/user'
-import { createUserSchema } from '../entities/user.schema'
+import { User } from '../entities/user/user'
+import { createUserSchema } from '../entities/user/user.schema'
 import * as AuthService from '../services/auth'
 import * as UserService from '../services/user'
 import * as ValidationService from '../services/validate'
@@ -24,7 +24,7 @@ export default class AuthController {
     public static async loginUser(context: BaseContext): Promise<void> {
         ValidationService.validateRequiredProperties(context, context.request.body, ['email', 'password'])
 
-        const user = <User> await UserService.findUser(context, { where: { email: context.request.body.email } }, false)
+        const user = <User>await UserService.findUser(context, { where: { email: context.request.body.email } }, false)
 
         await UserService.checkIfUserPasswordCorrect(context, user)
 
@@ -56,7 +56,7 @@ export default class AuthController {
                 token: jwt.sign(decoded, config.jwt.accessTokenSecret)
             })
 
-        const user = <User> await UserService.findUser(context, { where: { email: decoded.email } }, false)
+        const user = <User>await UserService.findUser(context, { where: { email: decoded.email } }, false)
 
         AuthService.verifyToken(context, user.refreshToken || 'aaaaa', 'refresh')
 
@@ -80,12 +80,12 @@ export default class AuthController {
     public static async logoutUser(context: BaseContext): Promise<void> {
         AuthService.verifyUserLoggedIn(context)
 
-        const user = <User> await UserService.findUser(context, { where: { email: context.state.user.email } }, false)
+        const user = <User>await UserService.findUser(context, { where: { email: context.state.user.email } }, false)
 
         user.refreshToken = 'removed'
 
-        if(config.redis.blackListEnabled) await AuthService.revokeToken(context)
-        
+        if (config.redis.blackListEnabled) await AuthService.revokeToken(context)
+
         await UserService.updateUser(context, user)
 
         response(context, 200)
