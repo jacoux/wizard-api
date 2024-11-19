@@ -4,7 +4,7 @@ import { config } from '../config'
 import { User } from '../entities/user/user'
 import { DecodedJwtToken } from '../interfaces/auth.interfaces'
 import { blacklistConnection } from '../providers/connections'
-import { BlackList } from 'jwt-blacklist'
+import { BlackList } from 'express-jwt-blacklist'
 import * as errors from '../libraries/errors'
 import { logger } from '../libraries/logger'
 
